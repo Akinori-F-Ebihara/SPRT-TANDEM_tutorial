@@ -4,8 +4,8 @@ In this tutorial, we show you how to train & evaluate the __SPRT-TANDEM__ algori
 
 ## Quickstart
 
-1. Click [this link](https://colab.research.google.com/github/Akinori-F-Ebihara/SPRT-TANDEM-tutorial/blob/main/notebooks/SPRT_TANDEM_tutorial.ipynb) to open the following notebook in Google Colab:  
-   [``./notebooks/SPRT_TANDEM_tutorial.ipynb``](https://github.com/Akinori-F-Ebihara/SPRT-TANDEM-tutorial/blob/main/notebooks/SPRT_TANDEM_tutorial.ipynb)
+1. Click [this link](https://colab.research.google.com/github/Akinori-F-Ebihara/SPRT-TANDEM_tutorial/blob/main/notebooks/SPRT_TANDEM_tutorial.ipynb) to open the following notebook in Google Colab:  
+   [``./notebooks/SPRT_TANDEM_tutorial.ipynb``](https://github.com/Akinori-F-Ebihara/SPRT-TANDEM_tutorial/blob/main/notebooks/SPRT_TANDEM_tutorial.ipynb)
 3. Follow the instruction in the notebook!
 
 # SPRT-TANDEM: what is it?
