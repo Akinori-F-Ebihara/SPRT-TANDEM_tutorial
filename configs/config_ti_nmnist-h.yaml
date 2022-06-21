@@ -1,0 +1,106 @@
+# MIT License
+
+# Copyright (c) 2021 Taiki Miyagawa and Akinori F. Ebihara
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# ==============================================================================
+
+### ================= Fix here: directory paths and dataset stats ===================== ###
+# Path to tensorboard logs is 'root_tblogs'/'subproject_name'_'exp_phase'/'comment'_'time_stamp'/eventsXXX
+# Path to database files is 'root_dblogs'/'subproject_name'_'exp_phase'.db
+# Path to checkpoint files is 'root_ckptlogs'/'subproject_name'_'exp_phase'/'comment'_'time_stamp'/ckptXXX
+root_dir: "./"
+project_name: "sprt_multiclass"
+name_dataset: "nosaic_mnist-h"
+root_tblogs: "./data-directory/sprt_multiclass/nosaic_mnist-h/tblogs"
+root_dblogs: "./data-directory/sprt_multiclass/nosaic_mnist-h/dblogs"
+root_ckptlogs: "./data-directory/sprt_multiclass/nosaic_mnist-h/ckptlogs"
+tfr_train: "./data-directory/nosaic_mnist-h_feat_train.tfrecords" 
+tfr_test: "./data-directory/nosaic_mnist-h_feat_test.tfrecords" 
+num_traindata: 50000 # sample size of NMNIST-H's training set
+num_trainsubset: 50000 # Undersampling is supported.
+num_validdata: 10000 # sample size of NMNSIT-H's validation set
+num_testdata: 10000 # sample size of NMNIST-H's test set
+duration: 20 # length of input sequences
+feat_dim: 128 # feature dimensions of LSTM's input
+num_classes: 10  # num of classes
+### ================= Fix here: directory paths and dataset stats ===================== ###
+
+
+# Training config
+gpu: 0 # which GPU to be used.
+subproject_name: "TI_NMNIST-H" # used to name log directories
+comment: "_" # used to name log directories
+num_trials: 1 # num of training runs in one `python train_X_Y.py` command.
+exp_phase: "try" # used to nmae log directories 
+    # This is the flag variable to determine whether to use Optuna.
+    # "try":
+    #     No optuning (the result .db files are void). Use this for debug etc.
+    # "tuning": 
+    #     Optuning. Use this to tune hyperparameters. 
+    #     See `root_dblogs`, where result DB files will be stored.
+    #     `show_trial_parameters.ipynb` is a powerful tool to hack the DB files.
+    # "stat": 
+    #     No optuning (the result .db files are void). Use this for stat trials.
+    #     The implementation is equivalent to "try".
+
+flag_resume: False # whether to resume the traininig
+path_resume: "./data-directory/trained_models/TI_NMNIST-H" # is ignored if flag_resume=False
+flag_seed: False # whether to fix random seed
+seed: 7
+train_display_step: 20 # evaluate model on train set per train_display_step iterations
+valid_step: 50 # evaluate model on valid set per valid_step iterations
+max_to_keep: 3 # the best max_to_keep models are to be storaged in root_ckptlogs 
+num_thresh: 3 # for SPRT
+sparsity: "logspace" # for threshold_generator
+
+# Model 
+width_lstm: 128 # hidden layer size of LSTM
+activation: "tanh" # sigmoid, linear, ...
+flag_wd: True # whether to use weight decay
+flag_mgn: False # Margin leaninig can be introduced but not recommended.
+
+# Hyperparameters
+num_iter: 5000 # num of training iterations
+decay_steps: [100000000,] # learning rate decays at this step
+dropout: 0. # from 0.0 to 1.0.  0.0 does nothing.
+
+
+# Search space of optuna
+list_lr: [0.01, 0.001, 0.0001] # learning_rates[0]
+list_opt: ["adam", "rmsprop"] # name_optimizer
+list_wd: [0.001, 0.0001, 0.00001] # weight_decay
+list_do: [0.] # dropout
+list_bs: [500] # batch_size
+list_lllr: [0.1, 1., 10., 100., 1000] # param_llr_loss
+#list_lllr: [0.] # for ablation study of multiplet loss and LSEL
+list_order: [0,1,5,10,15,19] # order_sprt
+
+
+# Frequent use
+order_sprt: 19 # meaningless when tuning # order of MSPRT-TANDME. Should be in 0,1,2,...,duration-1.
+batch_size: 500 # meaningless when tuning
+oblivious: True # whether to use M-TANDEMwO. If False then use M-TANDEM. 
+version: "E" # A--F. E is the LSEL; D is the logistic loss; A is the LLLR [Ebihara+, 2021]; and F is the modLSEL.
+learning_rates: [1e-4, 1e-5] # meaningless when tuning
+weight_decay: 0.0001 # meaningless when tuning. TotalLoss = param_multiplet_loss * MultipletLoss + param_llr_loss * LSEL + weight_decay * L2WeightNorm
+name_optimizer: "rmsprop" # meaningless when tuning
+param_multiplet_loss: 1. # TotalLoss = param_multiplet_loss * MultipletLoss + param_llr_loss * LSEL + weight_decay * L2WeightNorm
+param_llr_loss: 1. # meaningless when tuning # TotalLoss = param_multiplet_loss * MultipletLoss + param_llr_loss * LSEL + weight_decay * L2WeightNorm

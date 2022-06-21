@@ -1,0 +1,105 @@
+# MIT License
+
+# Copyright (c) 2021 Taiki Miyagawa and Akinori F. Ebihara
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# ==============================================================================
+
+############################## Fix here ##############################
+# Path to tensorboard logs: 'root_tblogs'/'subproject_name'_'exp_phase'/'comment'_'time_stamp'/eventsXXX
+# Path to database files: 'root_dblogs'/'subproject_name'_'exp_phase'.db
+# Path to checkpoint files: 'root_ckptlogs'/'subproject_name'_'exp_phase'/'comment'_'time_stamp'/ckptXXX
+root_dir: "./"
+project_name: "sprt_multiclass"
+name_dataset: "nosaic_mnist-h"
+root_tblogs: "./data-directory/sprt_multiclass/nosaic_mnist-h/tblogs"
+root_dblogs: "./data-directory/sprt_multiclass/nosaic_mnist-h/dblogs"
+root_ckptlogs: "./data-directory/sprt_multiclass/nosaic_mnist-h/ckptlogs"
+tfr_train: "./data-directory/nosaic_mnist-h_train.tfrecords"
+tfr_test: "./data-directory/nosaic_mnist-h_test.tfrecords"
+num_traindata: 50000
+num_trainsubset: 50000
+num_validdata: 10000
+num_testdata: 10000
+duration: 20
+feat_dims: [28, 28, 1]
+############################## Fix here ##############################
+
+# Training config
+gpu: 1 # which GPU is used.
+subproject_name: "FE_NMNIST-H"
+comment: "_" 
+nb_trials: 1 # num of consecutive trainings
+exp_phase: "try" 
+    # "try":
+    #     Use this to confirm the operation.
+    # "tuning": 
+    #     Use this to tune hyperparameters with Optuna. 
+    #     Check "./sprt_multiclass/nosaic_mnist-h/dblogs", where DB files will be saved.
+    # "stat": 
+    #     Use this for stat trials.
+
+flag_resume: False 
+    # True if resume training from the latest model in "path_resume".
+path_resume: "./data-directory/trained_models/FE_NMNIST-H" 
+    # is ignored if flag_resume=False
+flag_seed: False # Fix seed or not.
+seed: 7
+train_display_step: 20
+valid_step: 200
+max_to_keep: 3 # How many models to be saved during a trial.
+
+# Model
+resnet_size: 110
+final_size: 128 # = 64 for original ResNet v1
+flag_wd: True # weight decay
+resnet_version: 1
+    # Reference:
+    # ResNet v1
+    # 8: [1, 1, 1], # 0.09M, # of channels = 16, 32, and 64
+    # 14: [2, 2, 2], # 0.18M
+    # 20: [3, 3, 3], # 0.25M
+    # 32: [5, 5, 5], # 0.46M
+    # 44: [7, 7, 7], # 0.66M
+    # 56: [9, 9, 9], # 0.85M
+    # 110: [18, 18, 18], # 1.7M
+    # 218: [36, 36, 36] # 3.4M
+
+# Hyperparameters
+nb_epochs: 8 # Training epochs.
+batch_size: 10 # =1 is currently not supported.
+decay_steps: [1500000, 1500001] 
+
+# Data properties
+num_classes: 10
+
+# Search space for optuna 
+list_lr: [1e-2, 5e-3, 1e-3, 5e-4, 1e-4] # learning rate
+list_bs: [64] # batch size
+list_opt: ["adam", "momentum", "rmsprop"] # optimizer
+list_do: [0.] # dropout. Not supported.
+list_wd: [0.001, 0.0001, 0.00001] # weight decay
+
+########################################################
+# The parameters below are ignored if exp_phase = "tuning".
+learning_rates: [5e-4, 1e-4, 1e-4] # decay at the specific steps defined in "decay_steps".
+name_optimizer: "adam" 
+weight_decay: 0.00001  
+########################################################

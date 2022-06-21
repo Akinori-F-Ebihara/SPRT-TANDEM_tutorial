@@ -1,0 +1,198 @@
+# MIT License
+
+# Copyright (c) 2021 Taiki Miyagawa and Akinori F. Ebihara
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# ==============================================================================
+
+# Create UCF101 TFRecords before starting the training.
+# See /data-directory/create_UCF101.
+
+#============================= Fix here =============================#
+# Path to tensorboard logs: 'root_tblogs'/'subproject_name'_'exp_phase'/'comment'_'time_stamp'/eventsXXX
+# Path to database files: 'root_dblogs'/'subproject_name'_'exp_phase'.db
+# Path to checkpoint files: 'root_ckptlogs'/'subproject_name'_'exp_phase'/'comment'_'time_stamp'/ckptXXX
+root_dir: "./data-dorectory"
+project_name: "sprt_multiclass"
+name_dataset: "UCF101"
+root_tblogs: "./data-dorectory/sprt_multiclass/UCF101/tblogs"
+root_dblogs: "./data-dorectory/sprt_multiclass/UCF101/dblogs"
+root_ckptlogs: "./data-dorectory/sprt_multiclass/UCF101/ckptlogs"
+feat_dim: 2048 # feature dimensions of LSTM's input
+UCF101-50-240-320-tr1: "DATADIR/UCF101TFR-50-240-320/train01.tfrecords" # TFRecords path 
+UCF101-50-240-320-va1: "DATADIR/UCF101TFR-50-240-320/valid01.tfrecords" # TFRecords path
+UCF101-50-240-320-te1: "DATADIR/UCF101TFR-50-240-320/test01.tfrecords" # TFRecords path
+UCF101-50-240-320-tr2: "DATADIR/UCF101TFR-50-240-320/train02.tfrecords" # TFRecords path
+UCF101-50-240-320-va2: "DATADIR/UCF101TFR-50-240-320/valid02.tfrecords" # TFRecords path
+UCF101-50-240-320-te2: "DATADIR/UCF101TFR-50-240-320/test02.tfrecords" # TFRecords path
+UCF101-50-240-320-tr3: "DATADIR/UCF101TFR-50-240-320/train03.tfrecords" # TFRecords path
+UCF101-50-240-320-va3: "DATADIR/UCF101TFR-50-240-320/valid03.tfrecords" # TFRecords path
+UCF101-50-240-320-te3: "DATADIR/UCF101TFR-50-240-320/test03.tfrecords" # TFRecords path
+
+UCF101-50-256-256-tr1: "DATADIR/UCF101TFR-50-256-256/train01.tfrecords" # TFRecords path
+UCF101-50-256-256-va1: "DATADIR/UCF101TFR-50-256-256/valid01.tfrecords" # TFRecords path
+UCF101-50-256-256-te1: "DATADIR/UCF101TFR-50-256-256/test01.tfrecords" # TFRecords path
+UCF101-50-256-256-tr2: "DATADIR/UCF101TFR-50-256-256/train02.tfrecords" # TFRecords path
+UCF101-50-256-256-va2: "DATADIR/UCF101TFR-50-256-256/valid02.tfrecords" # TFRecords path
+UCF101-50-256-256-te2: "DATADIR/UCF101TFR-50-256-256/test02.tfrecords" # TFRecords path
+UCF101-50-256-256-tr3: "DATADIR/UCF101TFR-50-256-256/train03.tfrecords" # TFRecords path
+UCF101-50-256-256-va3: "DATADIR/UCF101TFR-50-256-256/valid03.tfrecords" # TFRecords path
+UCF101-50-256-256-te3: "DATADIR/UCF101TFR-50-256-256/test03.tfrecords" # TFRecords path
+
+UCF101-150-240-320-tr1: "DATADIR/UCF101TFR-150-240-320/train01.tfrecords" # TFRecords path
+UCF101-150-240-320-va1: "DATADIR/UCF101TFR-150-240-320/valid01.tfrecords" # TFRecords path
+UCF101-150-240-320-te1: "DATADIR/UCF101TFR-150-240-320/test01.tfrecords" # TFRecords path
+UCF101-150-240-320-tr2: "DATADIR/UCF101TFR-150-240-320/train02.tfrecords" # TFRecords path
+UCF101-150-240-320-va2: "DATADIR/UCF101TFR-150-240-320/valid02.tfrecords" # TFRecords path
+UCF101-150-240-320-te2: "DATADIR/UCF101TFR-150-240-320/test02.tfrecords" # TFRecords path
+UCF101-150-240-320-tr3: "DATADIR/UCF101TFR-150-240-320/train03.tfrecords" # TFRecords path
+UCF101-150-240-320-va3: "DATADIR/UCF101TFR-150-240-320/valid03.tfrecords" # TFRecords path
+UCF101-150-240-320-te3: "DATADIR/UCF101TFR-150-240-320/test03.tfrecords" # TFRecords path
+
+UCF101-150-256-256-tr1: "DATADIR/UCF101TFR-150-256-256/train01.tfrecords" # TFRecords path
+UCF101-150-256-256-va1: "DATADIR/UCF101TFR-150-256-256/valid01.tfrecords" # TFRecords path
+UCF101-150-256-256-te1: "DATADIR/UCF101TFR-150-256-256/test01.tfrecords" # TFRecords path
+UCF101-150-256-256-tr2: "DATADIR/UCF101TFR-150-256-256/train02.tfrecords" # TFRecords path
+UCF101-150-256-256-va2: "DATADIR/UCF101TFR-150-256-256/valid02.tfrecords" # TFRecords path
+UCF101-150-256-256-te2: "DATADIR/UCF101TFR-150-256-256/test02.tfrecords" # TFRecords path
+UCF101-150-256-256-tr3: "DATADIR/UCF101TFR-150-256-256/train03.tfrecords" # TFRecords path
+UCF101-150-256-256-va3: "DATADIR/UCF101TFR-150-256-256/valid03.tfrecords" # TFRecords path
+UCF101-150-256-256-te3: "DATADIR/UCF101TFR-150-256-256/test03.tfrecords" # TFRecords path
+
+numtr1_UCF101-50-240-320: 35996 # sample size of training set
+numva1_UCF101-50-240-320: 4454 # sample size of validation set
+numte1_UCF101-50-240-320: 15807 # sample size of test set
+numtr2_UCF101-50-240-320: None # not computed yet
+numva2_UCF101-50-240-320: None # not computed yet
+numte2_UCF101-50-240-320: None # not computed yet
+numtr3_UCF101-50-240-320: None # not computed yet
+numva3_UCF101-50-240-320: None # not computed yet
+numte3_UCF101-50-240-320: None # not computed yet
+
+numtr1_UCF101-50-256-256: 35996 # sample size of training set
+numva1_UCF101-50-256-256: 4454 # sample size of validation set
+numte1_UCF101-50-256-256: 15807 # sample size of test set
+numtr2_UCF101-50-256-256: None # not computed yet
+numva2_UCF101-50-256-256: None # not computed yet
+numte2_UCF101-50-256-256: None # not computed yet
+numtr3_UCF101-50-256-256: None # not computed yet
+numva3_UCF101-50-256-256: None # not computed yet
+numte3_UCF101-50-256-256: None # not computed yet
+
+numtr1_UCF101-150-240-320: 14467 # sample size of training set
+numva1_UCF101-150-240-320: 1775 # sample size of validation set
+numte1_UCF101-150-240-320: 6337 # sample size of test set
+numtr2_UCF101-150-240-320: None # not computed yet
+numva2_UCF101-150-240-320: None # not computed yet
+numte2_UCF101-150-240-320: None # not computed yet
+numtr3_UCF101-150-240-320: None # not computed yet
+numva3_UCF101-150-240-320: None # not computed yet
+numte3_UCF101-150-240-320: None # not computed yet
+
+numtr1_UCF101-150-256-256: 14467 # sample size of training set
+numva1_UCF101-150-256-256: 1775 # sample size of validation set
+numte1_UCF101-150-256-256: 6337 # sample size of test set
+numtr2_UCF101-150-256-256: None # not computed yet
+numva2_UCF101-150-256-256: None # not computed yet
+numte2_UCF101-150-256-256: None # not computed yet
+numtr3_UCF101-150-256-256: None # not computed yet
+numva3_UCF101-150-256-256: None # not computed yet
+numte3_UCF101-150-256-256: None # not computed yet
+
+classwise_sample_sizes_UCF101-50: [333, 274, 349, 312, 206, 503, 238, 309, 179, 284, 429, 577, 512, 181, 215, 298, 424, 479, 273, 420, 300, 204, 217, 250, 255, 384, 607, 211, 219, 280, 194, 333, 332, 348, 373, 318, 255, 252, 361, 204, 478, 455, 208, 547, 183, 394, 876, 158, 444, 354, 274, 419, 245, 231, 319, 439, 232, 212, 552, 631, 616, 575, 531, 345, 820, 410, 261, 352, 584, 205, 617, 133, 334, 671, 297, 630, 383, 510, 206, 245, 399, 317, 322, 614, 205, 318, 329, 387, 316, 331, 267, 399, 200, 359, 368, 252, 213, 375, 240, 377, 340]
+  # sum is 35996
+classwise_sample_sizes_UCF101-150: [138, 116, 147, 128, 81, 197, 100, 124, 85, 121, 178, 222, 196, 81, 91, 109, 177, 184, 110, 170, 120, 90, 95, 109, 106, 164, 203, 73, 93, 120, 84, 133, 133, 140, 160, 132, 102, 104, 142, 78, 180, 198, 90, 194, 81, 144, 329, 75, 207, 145, 111, 156, 89, 83, 125, 179, 93, 78, 217, 234, 228, 222, 212, 138, 301, 152, 127, 149, 223, 90, 208, 65, 131, 254, 139, 243, 181, 209, 92, 103, 170, 125, 141, 234, 88, 126, 128, 154, 134, 133, 128, 163, 84, 153, 140, 105, 89, 150, 96, 149, 166]
+  # sum is 14467
+num_classes: 101 # num of classes
+#============================= Fix here end =============================#
+# Data properties
+duration: 50 # 50 or 150 
+HxW: [240, 320] # [240, 320] or [256, 256] 
+split: 1 # 1, 2, or 3. UCF101's train/test splits.
+
+# Training config
+gpu: 3 # which GPU to be used.
+subproject_name: "MSPRT-TANDEM_UCF101_ver20210520" # used to name log directories
+comment: "memorandumABC" # used to name log directories
+num_trials: 10  # num of training runs in one `python train_X_Y.py` command.
+exp_phase: "stat" # used to nmae log directories 
+    # This is the flag variable to determine whether to use Optuna.
+    # "try":
+    #     No optuning (the result .db files are void). Use this for debug etc.
+    # "tuning": 
+    #     Optuning. Use this to tune hyperparameters. 
+    #     See `root_dblogs`, where result DB files will be stored.
+    #     `show_trial_parameters.ipynb` is a powerful tool to hack the DB files.
+    # "stat": 
+    #     No optuning (the result .db files are void). Use this for stat trials.
+    #     The implementation is equivalent to "try".
+
+flag_shuffle: True # shuffle train set or not.
+flag_resume: False # whether to resume the traininig
+path_resume: "./data-dorectory/sprt_multiclass/UCF101/ckptlogs/debug_valid_loop_ckpt_stat/debug_valid_loop_ckpt_20200227_105623935" 
+  # is ignored if flag_resume=False
+flag_seed: False # whether to fix random seed
+seed: 7
+train_display_step: 20  # evaluate model on train set per train_display_step iterations
+valid_step: 200 # evaluate model on valid set per valid_step iterations
+max_to_keep: 3 # the best max_to_keep models are to be storaged in root_ckptlogs 
+num_thresh: 3 # for SPRT. GPU memory-consuming.
+sparsity: "logspace" # for threshold_generator
+
+# Model 
+width_lstm: 256 # hidden layer size of LSTM
+activation: "tanh" # sigmoid, linear, ...
+flag_wd: True # weight decay
+flag_mgn: False # margin in loss function or not. False is recommended.
+flag_prior_ratio: False # whether to add prior ratio term to LLR
+flag_prefactor: True # whether to multiply cost matrix
+
+# Hyperparameters
+num_iter: 5000 # num of training iterations
+decay_steps: [100000000,] # learning rate decays at this step
+dropout: 0. # from 0.0 to 1.0.  0.0 does nothing.
+batch_size: 256 # batch size
+oblivious: False # whether to use M-TANDEMwO. If False then M-TANDEM. 
+order_sprt: 49  # meaningless when tuning. Order of MSPRT-TANDME. Should be in 0,1,2,...,duration-1.
+
+
+# Search space for optuna
+list_lr: [1e-3, 1e-4, 1e-5] # learning_rates[0]
+list_opt: ["adam", "rmsprop"] # name_optimizer
+list_wd: [0.001, 0.0001, 0.00001] # weight_decay
+list_multLam: [0.0001, 0.001, 0.01, 1., 10.] # param_multLam. Automatically [None] if loss_type != "BARR" or "LSIFwC".
+list_order: [49] # order_sprt
+list_bs: [256] # batch_size
+
+#list_beta: [0.99, 0.999, 0.9999, 0.99999, 1.] # Automatically list_beta = [-1] if flag_prefactor=Flase)
+list_beta: [-1.] # Automatically list_beta = [-1] if flag_prefactor=Flase)  
+
+
+# 20210428 UCF101, duration 50 or 150, resol 240x320 or 256x256
+#==============================================================================
+# # Daily use
+loss_type: "Logistic" # which DRE loss: LSIF, LSIFwC, DSKL, BARR, LLLR, LSEL, Logistic, or NGA-LSEL. 
+beta: -1. # meaningless when tuning. beta determines the cost matrix. E.g., -1., 1., 0.9, 0.99, 0.999, ... Must be a flot. See ["Class-Balanced Loss Based on Effective Number of Samples," Cui+, CVPR2019].
+learning_rates: [1e-4, 1e-3] # meaningless when tuning 
+weight_decay: 0.0001 # meaningless when tuning
+name_optimizer: "adam" # meaningless when tuning
+param_multiLam: 0.1 # meaningless when tuning  # float or None  # Automatically None if loss_type != "BARR" or "LSIFwC"
+    # TotalLoss = DRELoss + weight_decay * L2WeightNorm
+    # DRELoss contains non-None param_multLam if loss_type = "BARR" or "LSIFwC".
