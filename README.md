@@ -154,7 +154,7 @@ $X_1^{(1,6)}$:
 $X_2^{(1,6)}$:
 
 <div align="center">
-<img src ="../images/spoof.png">
+<img src ="./images/spoof.png">
 </div>
 
 The next step is to calculate the LLR to test the hypotheses. But _how_? Here, you are confronting with two problems executing the SPRT. First, unlike the coin-flipping example, __you do not know the probability__ conditioned with a class label (i.e., likelihood) of each sample. Second, the video frames are __highly correlated__, and the i.i.d. assumption of the original SPRT no longer holds. These two problems, which are partain to real-world scenarios, hamper executing the SPRT.
