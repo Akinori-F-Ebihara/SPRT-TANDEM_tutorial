@@ -2,7 +2,7 @@
 
 In this tutorial, we show you how to train & evaluate the __SPRT-TANDEM__ algorithm on your sequential dataset. The tutorial is designed to work on [Google Colab](https://colab.research.google.com/).  
 
-[PyTorch](https://github.com/Akinori-F-Ebihara/SPRT-TANDEM-PyTorch) and [TensorFlow](https://github.com/TaikiMiyagawa/MSPRT-TANDEM) implementations are available for your customized project.
+If you wish to use SPRT-TANDEM for your custom project, [PyTorch](https://github.com/Akinori-F-Ebihara/SPRT-TANDEM-PyTorch) and [TensorFlow](https://github.com/TaikiMiyagawa/MSPRT-TANDEM.
 
 ## Quickstart
 
